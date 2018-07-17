@@ -12,6 +12,8 @@ var myTweets = "";
 var inputArr = process.argv;
 var command = process.argv[2];
 var userInput = "";
+var output = "";
+var newLine = "--------------------------------------------"
 
 var twitterCommand = "my-tweets";
 var spotifyCommand = "spotify-this-song";
@@ -33,19 +35,23 @@ var queryUrl = "http://www.omdbapi.com/?t=" + userInput + "&y=&plot=short&apikey
 
 if(command === twitterCommand){
 runTwitter();
+
 }
 
 if(command === spotifyCommand && userInput !== ""){
 runSpotify();
+
 }
 
 if (command === spotifyCommand && userInput === ""){
    userInput = "the+sign";
    runSpotify();
+   
 }
 
 if(command === movieCommand){
    runMovie();
+   
 }
 
 if(command === liriCommand){
@@ -71,7 +77,7 @@ if(command === liriCommand){
       }
    }
    runSpotify();
-      
+   
    })
 }
 
@@ -84,6 +90,8 @@ function runTwitter(){
          console.log(tweets[i].created_at);
          console.log('"' + tweets[i].text + '"');
          console.log("--------------------------------")
+         output = tweets[i].created_at + ': "' + tweets[i].text + '"';
+         appendFile();
         }
        
      }
@@ -106,7 +114,8 @@ function runSpotify(){
      console.log("--------------------------------")
      console.log(artist + '\n' + song + '\n' + preview + '\n' + album);
      console.log("--------------------------------")
- 
+     output = (artist + '\n' + song + '\n' + preview + '\n' + album);
+     appendFile();
      
    })
    .catch(function(err) {
@@ -129,6 +138,16 @@ function runMovie(){
       console.log("--------------------------------")
       console.log(title + '\n' + year + '\n' + imdbRating + '\n' + rottenTomatoes + '\n' + country + '\n' + language + '\n' + plot + '\n' + actors);
       console.log("--------------------------------")
+      output = title + '\n' + year + '\n' + imdbRating + '\n' + rottenTomatoes + '\n' + country + '\n' + language + '\n' + plot + '\n' + actors;
+      appendFile();
+      }
+    });
+}
+
+function appendFile(){
+   fs.appendFile("log.txt", "\n" + newLine + "\n" + output, function(err) {
+      if (err) {
+        return console.log(err);
       }
     });
 }
