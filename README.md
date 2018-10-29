@@ -4,7 +4,7 @@ LIRI is a command line node app that takes in parameters and returns data.
 
 ## Instructions:
 This is a back end application and has no front end. To start, you'll first need to run an npm install. Once that finishes,
-within the terminal of the root, type "node liri" with one of the commands listed below.
+within the terminal of the root, type "node liri" followed by one of the commands listed below.
 
 ## Commands:
 * "movie-this" [movie name]: returns information about a movie
